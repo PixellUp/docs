@@ -6,7 +6,12 @@
     "license": {
       "name": "MIT"
     },
-    "version": "1.0.0"
+    "version": "1.0.0",
+    "contact": {
+      "url": "google.com",
+      "email": "hello@teo.com",
+      "name": "Teodor"
+    }
   },
   "servers": [
     {
@@ -29,8 +34,18 @@
             "description": "The maximum number of results to return",
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "minimum": 1,
+              "maximum": 10
             }
+          },
+          {
+            "schema": {
+              "type": "boolean"
+            },
+            "in": "query",
+            "name": "stream",
+            "description": "Should response be streamed"
           }
         ],
         "responses": {
@@ -57,7 +72,8 @@
               }
             }
           }
-        }
+        },
+        "x-internal": false
       },
       "post": {
         "description": "Creates a new plant in the store",
@@ -80,6 +96,30 @@
                 "schema": {
                   "$ref": "#/components/schemas/Plant"
                 }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/ogg": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {
+              "header-0": {
+                "schema": {
+                  "type": "string"
+                }
               }
             }
           },
@@ -93,7 +133,9 @@
               }
             }
           }
-        }
+        },
+        "summary": "Create Planty",
+        "operationId": ""
       }
     },
     "/plants/{id}": {
@@ -123,6 +165,62 @@
                 "schema": {
                   "$ref": "#/components/schemas/Error"
                 }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/test": {
+      "get": {
+        "summary": "Your GET endpoint",
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {},
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "duh": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "joknogzt6g97c"
+                      },
+                      "default": "boy"
+                    },
+                    "": {
+                      "type": "string",
+                      "x-stoplight": {
+                        "id": "y4wx6tv8htfjc"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": "get-test",
+        "description": "It's just a test",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cool": {
+                    "type": "string",
+                    "x-stoplight": {
+                      "id": "o6piqnnoyb7ei"
+                    }
+                  }
+                },
+                "required": [
+                  "cool"
+                ]
               }
             }
           }
